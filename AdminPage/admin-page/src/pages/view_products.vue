@@ -1,7 +1,7 @@
 <template>
   <body>
     <main class="container">
-        <h1 style="margin-bottom: 10px !important;">View Products</h1> 
+        <h1 style="margin-bottom: 10px !important; ">View Products</h1> 
       <div>
         <div class="grid">
           <ItemComp name="iPhone" price="100" description="Great product" image="🍾"></ItemComp>
