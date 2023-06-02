@@ -24,20 +24,21 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-        Optional<Order> maybeOrder = orderRepository.findById(id);
+    public ResponseEntity<Order> getOrderById(@PathVariable int id) {
+        Optional<Order> maybeOrder = orderRepository.findById((long)id);
         return maybeOrder.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+    @PostMapping("/createOrder")
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) { 
+        System.out.println("OrderController.createOrder: " + order);
         Order createdOrder = orderService.createOrder(order);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        Optional<Order> maybeExistingOrder = orderRepository.findById(id);
+    public ResponseEntity<Order> updateOrder(@PathVariable int id, @RequestBody Order order) {
+        Optional<Order> maybeExistingOrder = orderRepository.findById((long)id);
         if (maybeExistingOrder.isPresent()) {
             order.setId(id);
             Order updatedOrder = orderRepository.save(order);
@@ -51,6 +52,7 @@ public class OrderController {
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
         Optional<Order> maybeExistingOrder = orderRepository.findById(id);
         if (maybeExistingOrder.isPresent()) {
+            //status = cancelled here
             orderRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         } else {
@@ -58,7 +60,19 @@ public class OrderController {
         }
     }
 
-    @GetMapping
+    @PostMapping("/cancelOrder/{id}")
+    public ResponseEntity<Void> cancelOrder(@PathVariable Long id) {
+        Optional<Order> maybeExistingOrder = orderRepository.findById(id);
+        if (maybeExistingOrder.isPresent()) {
+            //status = cancelled herexs
+            orderRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping()
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
