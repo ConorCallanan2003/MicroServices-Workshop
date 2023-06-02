@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    </head>
+    <body>
+        <div class="container">
+        <nav>
+             <ul>
+                <li><strong>Brand</strong></li>
+            </ul>
+            <ul>
+                <li><a href="orderPage.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+             </ul>
+        </nav>
+        </div>  
+        <div class="container">
+            <h1>You're Cart</h1>
+        </div>
+        <div class="container">
+            <div class="grid">
+                <div>
+                    <h2>Info</h2>
+                    <form action="/order" method="POST">              
+                        <label for="custID">Customer ID</label>
+                        <input name="custID" type="text" required>
+                        <button type="submit">Submit</button>                                                                  
+                    </form>                 
+               </div>
+               <div>
+                   <article>
+                       <h3>Your Order</h3>
+                       <table>
+                           <thead>
+                             <tr>
+                               <th scope="col">Product</th>
+                               <th scope="col">Price</th>
+                               <th scope="col">Quantity</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                               {% for i in range(data[4]) %}
+                               <tr>
+                               <td>{{ data[0][i].name }}</td>
+                               <td>{{ data[0][i].price }}</td>
+                               <td>{{ data[2][i] }}</td>
+                               </tr>
+                               {% endfor %}
+                           </tbody>
+                           <tfoot>
+                               <tr>
+                               <th scope="col">Total</th>
+                               <th scope="col">{{ data[1] }}</th>
+                               <th scope="col">{{ data[3] }}</th>
+                               </tr>
+                             </tfoot>
+                       </table>
+                   </article>
+               </div>
+            </div>
+        </div>             
+    </body>
+</html>

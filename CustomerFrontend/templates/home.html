@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    </head>
+    <body>
+        <div class="container">
+          
+        <nav>
+             <ul>
+                <li><strong>Brand</strong></li>
+            </ul>
+            <ul>
+                <li><a href="/orderPage"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+             </ul>
+        </nav>
+        </div>  
+        <div class="container">
+            <h1>Our Company</h1>
+            <img src="" alt="random image">
+            <p>Slay img here ⬆︎</p>
+            
+        </div>
+        <div class="container">
+            <h1>Prodcts</h1>
+            {% for i in range(0,data[1],3) %}
+            <div class="grid">
+                {% for product in data[0][i:i+3] %}
+                    <div>
+                        <article>
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p>{{ product.price }}</p>
+                        <form action="/addToCart" method="POST">
+                            <button name= "product" type="submit" value="{{product.id}}">Buy {{ product.image }}</button>
+                        </form>
+                    </article>
+                    </div>
+                    {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+    </body>
+</html>
